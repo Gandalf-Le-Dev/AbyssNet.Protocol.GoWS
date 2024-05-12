@@ -16,7 +16,7 @@ func init() {
 
 	d, err := filepath.Abs(dir)
 	if err != nil {
-		log.Printf(err.Error())
+		log.Print(err.Error())
 		return
 	}
 	dir = d
@@ -25,8 +25,8 @@ func init() {
 func main() {
 	srv := gows.NewServer(new(Websocket), nil)
 
-	// wss://www.gows.com:8443/
-	if err := srv.RunTLS(":8443", dir+"/server.crt", dir+"/server.pem"); err != nil {
+	// wss://localhost:6666/
+	if err := srv.RunTLS(":6666", dir+"/server.crt", dir+"/server.pem"); err != nil {
 		log.Panicln(err.Error())
 	}
 }

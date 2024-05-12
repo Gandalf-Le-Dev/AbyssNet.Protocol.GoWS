@@ -107,7 +107,7 @@ func TestAccept(t *testing.T) {
 		ReadBufferSize:    1024,
 		WriteBufferSize:   1024,
 		ResponseHeader: http.Header{
-			"Server": []string{"gws"},
+			"Server": []string{"gows"},
 		},
 	})
 
@@ -208,7 +208,7 @@ func TestAccept(t *testing.T) {
 
 func TestFailHijack(t *testing.T) {
 	var upgrader = NewUpgrader(new(webSocketMocker), &ServerOption{
-		ResponseHeader: http.Header{"Server": []string{"gws"}},
+		ResponseHeader: http.Header{"Server": []string{"gows"}},
 	})
 	var request = &http.Request{
 		Header: http.Header{},
@@ -350,7 +350,7 @@ func TestNewServer(t *testing.T) {
 		time.Sleep(100 * time.Millisecond)
 		client, err := net.Dial("tcp", "localhost"+addr)
 		as.NoError(err)
-		var payload = fmt.Sprintf("GET ws://localhost%s HTTP/1.1 GWS\r\n\r\n", addr)
+		var payload = fmt.Sprintf("GET ws://localhost%s HTTP/1.1 GOWS\r\n\r\n", addr)
 		client.Write([]byte(payload))
 		wg.Wait()
 	})

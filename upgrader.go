@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"crypto/tls"
-	"errors"
+	"fmt"
 	"net"
 	"net/http"
 	"strconv"
@@ -165,7 +165,7 @@ func (c *Upgrader) doUpgradeFromConn(netConn net.Conn, br *bufio.Reader, r *http
 		return nil, ErrHandshake
 	}
 	if !strings.EqualFold(r.Header.Get(internal.SecWebSocketVersion.Key), internal.SecWebSocketVersion.Val) {
-		return nil, errors.New("gws: websocket version not supported")
+		return nil, fmt.Errorf("%s: websocket version not supported", internal.ErrorPrefix)
 	}
 	if !internal.HttpHeaderContains(r.Header.Get(internal.Connection.Key), internal.Connection.Val) {
 		return nil, ErrHandshake
@@ -238,7 +238,7 @@ type Server struct {
 func NewServer(eventHandler Event, option *ServerOption) *Server {
 	var c = &Server{upgrader: NewUpgrader(eventHandler, option)}
 	c.option = c.upgrader.option
-	c.OnError = func(conn net.Conn, err error) { c.option.Logger.Error("gws: " + err.Error()) }
+	c.OnError = func(conn net.Conn, err error) { c.option.Logger.Error(internal.ErrorPrefix + ": " + err.Error()) }
 	c.OnRequest = func(conn net.Conn, br *bufio.Reader, r *http.Request) {
 		socket, err := c.GetUpgrader().UpgradeFromConn(conn, br, r)
 		if err != nil {

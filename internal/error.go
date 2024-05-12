@@ -64,6 +64,8 @@ const (
 	CloseTLSHandshake StatusCode = 1015
 )
 
+const ErrorPrefix string = "AbyssNetGoWs"
+
 func (c StatusCode) Uint16() uint16 {
 	return uint16(c)
 }
@@ -76,7 +78,7 @@ func (c StatusCode) Bytes() []byte {
 }
 
 func (c StatusCode) Error() string {
-	return "gws: " + closeErrorMap[c]
+	return ErrorPrefix + ": " + closeErrorMap[c]
 }
 
 func NewError(code StatusCode, err error) *Error {

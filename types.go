@@ -37,7 +37,7 @@ type CloseError struct {
 }
 
 func (c *CloseError) Error() string {
-	return fmt.Sprintf("gws: connection closed, code=%d, reason=%s", c.Code, string(c.Reason))
+	return fmt.Sprintf("%s: connection closed, code=%d, reason=%s", internal.ErrorPrefix, c.Code, string(c.Reason))
 }
 
 var (

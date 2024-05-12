@@ -52,7 +52,7 @@ func (c *Conn) readControl() error {
 	case OpcodeCloseConnection:
 		return c.emitClose(bytes.NewBuffer(payload))
 	default:
-		var err = fmt.Errorf("gws: unexpected opcode %d", opcode)
+		var err = fmt.Errorf("gows: unexpected opcode %d", opcode)
 		return internal.NewError(internal.CloseProtocolError, err)
 	}
 }

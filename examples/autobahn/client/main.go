@@ -13,10 +13,10 @@ const remoteAddr = "127.0.0.1:9001"
 func main() {
 	const count = 517
 	for i := 1; i <= count; i++ {
-		testCase(true, i, "gws-client/sync")
+		testCase(true, i, "gows-client/sync")
 	}
 	for i := 1; i <= count; i++ {
-		testCase(false, i, "gws-client/async")
+		testCase(false, i, "gows-client/async")
 	}
 	updateReports()
 }
@@ -83,7 +83,7 @@ func (c *updateReportsHandler) OnClose(socket *gows.Conn, err error) {
 }
 
 func updateReports() {
-	var url = fmt.Sprintf("ws://%s/updateReports?agent=gws/client", remoteAddr)
+	var url = fmt.Sprintf("ws://%s/updateReports?agent=gows/client", remoteAddr)
 	var handler = &updateReportsHandler{onexit: make(chan struct{})}
 	socket, _, err := gows.NewClient(handler, &gows.ClientOption{
 		Addr:             url,

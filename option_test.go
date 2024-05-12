@@ -50,7 +50,7 @@ func TestDefaultUpgrader(t *testing.T) {
 	var updrader = NewUpgrader(new(BuiltinEventHandler), &ServerOption{
 		ResponseHeader: http.Header{
 			"Sec-Websocket-Extensions": []string{"chat"},
-			"X-Server":                 []string{"gws"},
+			"X-Server":                 []string{"gows"},
 		},
 	})
 	var config = updrader.option.getConfig()
@@ -70,7 +70,7 @@ func TestDefaultUpgrader(t *testing.T) {
 	as.NotNil(updrader.option.NewSession)
 	as.Nil(updrader.option.SubProtocols)
 	as.Equal("", updrader.option.ResponseHeader.Get("Sec-Websocket-Extensions"))
-	as.Equal("gws", updrader.option.ResponseHeader.Get("X-Server"))
+	as.Equal("gows", updrader.option.ResponseHeader.Get("X-Server"))
 	as.Equal(updrader.option.PermessageDeflate.ServerMaxWindowBits, 0)
 	as.Equal(updrader.option.PermessageDeflate.ClientMaxWindowBits, 0)
 	validateServerOption(as, updrader)

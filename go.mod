@@ -1,6 +1,6 @@
 module github.com/Gandalf-Le-Dev/abyssnet.protocol.gows
 
-go 1.18
+go 1.22.2
 
 require (
 	github.com/dolthub/maphash v0.1.0
